@@ -49,15 +49,15 @@ $ git clone git://github.com/ProHarshit/ProPhishr.git
 - Change to cloned directory and run `prophishr.sh` -
 ```
 $ cd ProPhishr
-$ bash ProPhishr.sh
+$ bash prophishr.sh
 ```
 
 - On first launch, It'll install the dependencies and that's it. `ProPhishr` is installed.
 
 ### Run on Docker
 ```
-$ docker pull ProHarshit/ProPhishr
-$ docker run --rm -it ProHarshit/ProPhishr
+$ docker pull ProHarshit/prophishr
+$ docker run --rm -it ProHarshit/prophishr
 ```
 
 ### Dependencies
