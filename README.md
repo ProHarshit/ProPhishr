@@ -1,3 +1,16 @@
+<!-- ProPhishr -->
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Version-1.0-green?style=for-the-badge">
+  <img src="https://img.shields.io/github/license/proharshit/prophishr?style=for-the-badge">
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Author-ProHarshit-cyan?style=flat-square">
+  <img src="https://img.shields.io/badge/Open%20Source-Yes-cyan?style=flat-square">
+  <img src="https://img.shields.io/badge/Written%20In-Bash-cyan?style=flat-square">
+</p>
+
 <p align="center">A beginners friendly, Automated phishing tool with 30+ templates.</p>
 
 ##
@@ -23,17 +36,19 @@ It only demonstrates "how phishing works". <b>You shall not misuse the informati
 - Multiple tunneling options
   - Localhost
   - Ngrok (With or without hotspot)
+  - Cloudflared (Alternative of Ngrok)
+
 
 ### Installation
 
 - Just, Clone this repository -
 ```
-$ git clone git://github.com/ProHarshit/ProPhishr.git
+$ git clone git://github.com/proharshit/prophishr.git
 ```
 
 - Change to cloned directory and run `prophishr.sh` -
 ```
-$ cd ProPhishr
+$ cd prophishr
 $ bash prophishr.sh
 ```
 
@@ -41,8 +56,8 @@ $ bash prophishr.sh
 
 ### Run on Docker
 ```
-$ docker pull ProHarshit/ProPhishr
-$ docker run --rm -it ProHarshit/prophishr
+$ docker pull proharshit/prophishr
+$ docker run --rm -it proharshit/prophishr
 ```
 
 ### Dependencies
@@ -73,3 +88,10 @@ $ docker run --rm -it ProHarshit/prophishr
 - [**TheLinuxChoice**](https://twitter.com/linux_choice)
 - [**DarksecDevelopers**](https://github.com/DarksecDevelopers)
 - [**Moises Tapia**](https://github.com/MoisesTapia)
+- [**Htr-Tech**](https://github.com/htr-tech)
+
+
+### Find Me on :
+<p align="left">
+  <a href="https://github.com/proharshit" target="_blank"><img src="https://img.shields.io/badge/Github-PROHARSHIT-green?style=for-the-badge&logo=github"></a>
+</p>
