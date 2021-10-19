@@ -56,8 +56,8 @@ $ bash ProPhishr.sh
 
 ### Run on Docker
 ```
-$ docker pull proharshit/prophishr
-$ docker run --rm -it proharshit/prophishr
+$ docker pull ProHarshit/ProPhishr
+$ docker run --rm -it ProHarshit/ProPhishr
 ```
 
 ### Dependencies
@@ -93,5 +93,5 @@ $ docker run --rm -it proharshit/prophishr
 
 ### Find Me on :
 <p align="left">
-  <a href="https://github.com/proharshit" target="_blank"><img src="https://img.shields.io/badge/Github-PROHARSHIT-green?style=for-the-badge&logo=github"></a>
+  <a href="https://github.com/ProHarshit" target="_blank"><img src="https://img.shields.io/badge/Github-PROHARSHIT-green?style=for-the-badge&logo=github"></a>
 </p>
