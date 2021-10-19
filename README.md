@@ -43,13 +43,13 @@ It only demonstrates "how phishing works". <b>You shall not misuse the informati
 
 - Just, Clone this repository -
 ```
-$ git clone git://github.com/proharshit/prophishr.git
+$ git clone git://github.com/ProHarshit/ProPhishr.git
 ```
 
 - Change to cloned directory and run `prophishr.sh` -
 ```
-$ cd prophishr
-$ bash prophishr.sh
+$ cd ProPhishr
+$ bash ProPhishr.sh
 ```
 
 - On first launch, It'll install the dependencies and that's it. `ProPhishr` is installed.
