@@ -36,7 +36,6 @@ It only demonstrates "how phishing works". <b>You shall not misuse the informati
 - Multiple tunneling options
   - Localhost
   - Ngrok (With or without hotspot)
-  - Cloudflared (Alternative of Ngrok)
 
 
 ### Installation
